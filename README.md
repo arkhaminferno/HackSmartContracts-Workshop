@@ -62,6 +62,7 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
     }
 
 ## Exercise 2 vulnerability
+- Should not divide by  1 either because that will destroy all fractions. Do the accounting in wei/18 decimal places and no division.
 
 # Exercise 3
     // You can buy tokens.
