@@ -127,13 +127,9 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
 }
 
 ## Exercise 4 vulnerability
- - I am not so sure. Although this clearly fits a reentrancy pattern. The .transfer() function only forwards the necessary gas to make a  transfer call and should guard against it.however after the Istanbul fork that may change 
- - Re Entrancy Attack inside take() function on line 122 and 123.
- - fix would be switching line 123 and 122.
- ``` sh 
- safe.amount=0;  
- msg.sender.transfer(safe.amount);
- ```
+ - I am not so sure. Although this clearly fits a Block gas Limit Dos attack because in this contract it is using loops to take back all the amounts stored.
+ -A hacker can deposit really small amounts of ethers so that it can have many ethers into the array and when the contract takes back all the amounts stored it may go out of gas condition since the contract is using transfer keyword stipends fixed amount of gas for operation(2300 gas).
+ 
 
 
 # Exercise 5
