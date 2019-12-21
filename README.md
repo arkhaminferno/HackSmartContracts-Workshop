@@ -127,8 +127,9 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
 }
 
 ## Exercise 4 vulnerability
+ - Functions visibility not set ,can be called by other malicious contracts.
  - I am not so sure. Although this clearly fits a Block gas Limit Dos attack because in this contract it is using loops to take back all the amounts stored.
- -A hacker can deposit really small amounts of ethers so that it can have many ethers into the array and when the contract takes back all the amounts stored it may go out of gas condition since the contract is using transfer keyword stipends fixed amount of gas for operation(2300 gas).
+ - A hacker can deposit really small amounts of ethers so that it can have many ethers into the array and when the contract takes back all the amounts stored it may go out of gas condition and the money will be locked forever into the contract since the contract is using transfer keyword stipends fixed amount of gas for operation(2300 gas).
  
 
 
