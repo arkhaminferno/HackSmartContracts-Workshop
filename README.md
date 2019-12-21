@@ -78,7 +78,7 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
      */
     function buyToken(uint _amount, uint _price) payable {
         require(_price>=price); // The price is at least the current price.
-        require(_price * _amount * 1 ether <= msg.value); // You have paid at least the total price.
+        require(_price * _amount * 1 ether <= msg.value); // You have paid at least the total price. \\line 81
         balances[msg.sender]+=_amount;
     }
     
@@ -94,9 +94,8 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
 
 ## Exercise 3 vulnerability
 
-- The address that will deploy the contract will be the owner by default since there is no constructor defined or no openZepplin Owner.sol file imported in order to check msg.sender is owner.
-- after becoming the owner the hacker will call setPrice function then he will set its token price to least amount (say 1 or 0).
-- Since he changed the token price , he can buy as many tokens by calling buyTokens() function in least amount of cost.
+- Integer overflow at line 81
+- fix would be using safemath library from openzeppelin
 
 # Exercise 4
     // Contract to store and redeem money.
