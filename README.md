@@ -232,12 +232,22 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
     function price() constant returns(uint price) {
         return basePrice/(1 + objectBought[msg.sender]);
     }
-    
-}
+    }
  
  ## Exercise 7 vulnerability
+  - buy() function checks whether the value you are passing has exactly and equal to baseprice.It should consider the value returned         from price() function.
+  - you cannot buy more than 1 object at once by passing higher msg.value.
+  - fix inside the buy() function should be 
+     ```  
+     require(msg.value * (1 + objectBought[msg.sender]) == price());
+     ```
+     or
+     ```
+      require(msg.value * (1 + objectBought[msg.sender]) >= price());
+      ```
   
-  - 
+  - It is possible to forcibly send Ether to a contract  using selfdestruct() function.
+  - The selfdestruct contract method allows a user to specify a beneficiary to send any excess ether.
   # Exercise 8
     
     // You choose Head or Tail and send 1 ETH.
