@@ -63,6 +63,14 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
 
 ## Exercise 2 vulnerability
 - I can double vote.It doesn't subtract votes that i have already used
+- 
+
+```
+function buyVotingRights() payable {
+    require(msg.value % 1 ether == 0);.
+    votingRights[msg.sender]+=msg.value/(1 ether);
+}
+```
 # Exercise 3
     // You can buy tokens.
     // The owner can set the price.
@@ -89,13 +97,16 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
         require(msg.sender==owner);
         
         price=_price;
+    } 
     }
-}
 
 ## Exercise 3 vulnerability
 
-- Integer overflow at line 81
-- fix would be using safemath library from openzeppelin
+- no visibility set on functions anyone can call them.
+- and Can setPrice of tokens to 0 and can buy all tokens at 0 price.
+- Integer overflow inside buyToken function (line 81).
+- fix would be using safemath library.
+
 
 # Exercise 4
     // Contract to store and redeem money.
