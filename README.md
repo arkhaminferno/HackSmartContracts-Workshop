@@ -245,6 +245,7 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
      ```
       require(msg.value * (1 + objectBought[msg.sender]) >= price());
       ```
+   - user have to re calculate the exact value after each transaction.
   
   - It is possible to forcibly send Ether to a contract  using selfdestruct() function.
   - The selfdestruct contract method allows a user to specify a beneficiary to send any excess ether.
