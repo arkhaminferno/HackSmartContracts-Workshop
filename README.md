@@ -199,10 +199,11 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
 }
 
 ## Exercise 6 vulnerability
- - Inside buyToken() function msg.value Should not divide by  1 either because that will destroy all fractions. Do the accounting in wei/18 decimal places and no division.
- - no checking that whether you have enough tokens.
- - line 199 could be hacked using re entrancy
- -fix would be switching lines 199 and 200.
+ - no visibility set for functions,anyone call it using external contract.
+ - buyToken() Should not divide by  1 either because that will destroy all fractions.
+ - cross function re entrancy
+ - An attacker may also be able to do a similar attack using two different functions that share the same state.
+ - fix would be switching lines 199 and 200 on sendAllTokens() function in order to prevent re entrancy.
  ```sh
  balances[msg.sender]=0;
  balances[_recipient]=+balances[msg.sender];
@@ -221,7 +222,7 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
 
     /// @dev Buy an object.
     function buy() payable {
-        require(msg.value * (1 + objectBought[msg.sender]) == basePrice);
+        require(msg.value * (1 + objectBought[msg.sender]) == basePrice); //line 224
         objectBought[msg.sender]+=1;
     }
     
@@ -236,8 +237,7 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
  
  ## Exercise 7 vulnerability
   
-  -price() is never used.
-  
+  - 
   # Exercise 8
     
     // You choose Head or Tail and send 1 ETH.
@@ -373,10 +373,12 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
 }
 
 ## Exercise 10 vulnerability
+ - function timeout has no visibility specified so any hacker can call it and may do overflow the function. 
  - Front running attack/Race condition attack:
    An attacker can watch the transaction pool for transactions which may contain solutions to problems, modify or revoke the attacker's    permissions or change a state in a contract which is undesirable for the attacker. The attacker can then get the data from this     transaction and create a transaction of their own with a higher gasPrice and get their transaction included in a block before the original.
  - It would seem like party A can look at party B answer and then call headtail again if they lost.this would allow party A to get their money back and lock up the 1 eth in the contract.
   then B is locked to the input, so A can change there answer and drain the whole contract.
+  - Fix would be using openzeppelin safemath library.
 
 # Exercise 11
     
@@ -414,8 +416,7 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
     }
 
 ## Exercise 11 vulnerability
-- re entrancy hack on line number 415 ether transfers that are followed by state changes may be reentrant.)
-- no safemath library used could go underflow/overflow error.
+- re entrancy hack on line number 415 ether transfers that are followed by state changes may be reentrant.
 - fix would be switching line 415 and 416.
 
 ```sh 
