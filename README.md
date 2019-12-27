@@ -34,6 +34,11 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
 ## Exercise 1 vulnerability
 - Should not divide by  1 either because that will destroy all fractions. Do the accounting in wei/18 decimal places and no division.
 - no checking that whether you have enough tokens.
+- Check if sender has balance and for overflows ,fix would be
+  ``` 
+   require(balances[msg.sender] >= amount && balances[_recipient] + amount >= balanceOf[__recipient]);
+  ```
+
 
 # Exercise 2 
     // You can buy voting rights by sending ether to the contract.
