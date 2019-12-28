@@ -68,12 +68,22 @@ https://github.com/clesaege/HackSmartContract/blob/master/contracts/SolidityHack
 
 ## Exercise 2 vulnerability
 - I can double vote.It doesn't subtract votes that i have already used
-- 
-
+-  plus buyVotingRights() takes msg.value in whole number form.if you buy voting rights in decimal msg.value (example 0.5 ether)
+   then the votingRights mapping wont be updated and your ether will be used andlocked forever.
+- fix in the buyVotingRights() function and vote() function should be 
 ```
 function buyVotingRights() payable {
     require(msg.value % 1 ether == 0);.
     votingRights[msg.sender]+=msg.value/(1 ether);
+}
+```
+```
+function vote(uint _nbVotes, bytes32 _proposition) {
+    require(_nbVotes <= votingRights[msg.sender]); // Check you have enough voting rights.
+    
+    votesCast[msg.sender]+=_nbVotes;
+    votesReceived[_proposition]+=_nbVotes;
+    votingRights[msg.sender]-=_nbVotes;
 }
 ```
 # Exercise 3
